@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+<link href="//dpsw.info/css.css" rel="stylesheet">
+
+<body class="bg-black roboto white padding" hidden> 
+
+  {{#items}}
+    <span class=thirty >
+      <a target=_ href={{url}}>{{title}}</a>
+    </span>
+    <br> 
+    <span class=orange >{{postedBy}}</span> 
+    {{postedAgo}} 
+    <span class=yellow >{{points}}</span> 
+    <span class=fuchsia >{{commentCount}}</span>
+    <br>
+  {{/items}}
+
+</div>
+   
+<script x-jsonp="http://api.ihackernews.com/page?format=jsonp&callback=render" src="render.js"></script>
