@@ -1,0 +1,12 @@
+<!doctype html>
+
+<body hidden>
+ <div id='container'>
+   Hello {{ name }} !
+   Server time is {{ info.datetime }}
+   <br>
+   {{ echo }}
+ </div>
+</body>
+
+<script x-json='data.json' x-updates=':81' src='render.js'></script>

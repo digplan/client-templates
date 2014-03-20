@@ -24,10 +24,28 @@
   window["x-data"] = null;
   
   window.render = function(data){
+    window["x-data"] = data;
     window["x-template"] = window["x-template"] || d.body.innerHTML;
     d.body.innerHTML = Hogan.compile(window["x-template"]).render(data);
     d.body.hidden = false;
   };
+
+  var tryUpdates = function(){
+    var wsurl = d.querySelector('[x-updates]');
+    if(!wsurl) return;
+    wsurl = 'ws://' + location.host + wsurl.getAttribute('x-updates');
+    var sock = new WebSocket(wsurl);
+    sock.onmessage = function(e){
+      if(typeof sock.id === 'undefined')
+        return sock.id = e.data;
+
+      var data = JSON.parse(e.data);
+      for(i in data){
+        window["x-data"][i] = data[i];
+      }
+      render(window["x-data"]);
+    }
+  }
 
   var hoganURL = '//cdnjs.cloudflare.com/ajax/libs/hogan.js/3.0.0/hogan.js';
 
@@ -50,7 +68,18 @@
         }
       });
 
+      tryUpdates();
     });
   });
+
+  window.post = function(u, d, cb){
+    var x = new XMLHttpRequest();
+    x.open('POST', u, true);
+    x.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    x.onload = function(e){
+      cb && cb(e.target.response);
+    }
+    x.send(d);
+  }
 
 })();
