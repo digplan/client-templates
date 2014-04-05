@@ -1,1 +1,0 @@
-render({"name": "world"})
