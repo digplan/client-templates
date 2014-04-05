@@ -1,7 +1,8 @@
 (function templ(){
 
   var d = document;
-
+  d.body.hidden = true;
+  
   var loadscript = function(href, cb){
     if(!href)
       throw Error('loadscript needs a URL');
@@ -9,7 +10,7 @@
     script.onload = cb;
     script.src = href;
   };
-  
+
   var loadjson = function(href, cb){
     if(!href)
       throw Error('loadjson needs a URL');
@@ -22,7 +23,7 @@
 
   window["x-template"] = null;
   window["x-data"] = null;
-  
+
   window.render = function(data){
     window["x-data"] = data;
     window["x-template"] = window["x-template"] || d.body.innerHTML;
@@ -33,26 +34,26 @@
   var tryUpdates = function(){
     var wsurl = d.querySelector('[x-updates]');
     if(!wsurl) return;
-    wsurl = 'ws://' + location.host + wsurl.getAttribute('x-updates');
-    var sock = new WebSocket(wsurl);
-    sock.onmessage = function(e){
-      if(typeof sock.id === 'undefined')
-        return sock.id = e.data;
-
+    var ev = new EventSource(wsurl.getAttribute('x-updates'));
+    ev.onmessage = function(e){
       var data = JSON.parse(e.data);
-      for(i in data){
-        window["x-data"][i] = data[i];
-      }
-      render(window["x-data"]);
+      render(data);
     }
   }
 
   var hoganURL = '//cdnjs.cloudflare.com/ajax/libs/hogan.js/3.0.0/hogan.js';
 
   d.addEventListener('DOMContentLoaded', function(){
+    var isJSON = d.querySelector('[x-json]');
+    var isJSONP = d.querySelector('[x-jsonp]');
+    
     loadscript(hoganURL, function getTemplate(){
       var isJSON = d.querySelector('[x-json]');
       var isJSONP = d.querySelector('[x-jsonp]');
+      
+      if(!isJSON && !isJSONP)
+        return tryUpdates();
+    
       var getData = loadjson;
       var url = (isJSON && isJSON.getAttribute('x-json'));
 
@@ -67,9 +68,10 @@
           render(json);
         }
       });
-
+      
       tryUpdates();
     });
+
   });
 
   window.post = function(u, d, cb){
