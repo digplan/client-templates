@@ -1,26 +1,17 @@
-var express = require('express');
-var app = express();
-app.use(express.bodyParser());
-app.use(express.static(__dirname));
+require('uni');
 
-var sockets = require('socket-server')({port: 81});
+var app = new Server();
 
-var sendall = function(){
-  console.log("sending update");
-  //var resp = '{"info": {"datetime": new Date()}}';
-  sockets.sendAll({echo: echoval, info: {datetime: new Date()}});
-}
+app.get('/feed', function(r, s){
 
-setInterval(sendall, 2000);
+  s.writeHead(200, {
+    'Connection': 'keep-alive',
+    'Content-Type': 'text/event-stream',
+    'Transfer-Encoding': 'chunked'
+  });
 
-var echoval = '';
+  setInterval(function(){
+    s.write("data: {\"time\":" + Date.now() + "}\n\n");
+  }, 1000);
 
-app.post('/echo', function(r, s){
-  console.log(r.body);
-  echoval = r.body.echoval;
-  console.log('echoval is', echoval);
-  s.end('ok ' + echoval);
-})
-
-app.listen(80);
-
+});
