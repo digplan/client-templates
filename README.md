@@ -3,11 +3,11 @@ Simple client templating
 
 Render.js uses Hogan to render for client HTML templating, via--
 
-JSON (via XHR) or 
-JSONP (dynamic script load) or
-EventSource/SSE (Now being used instead of WebSockets!)
+JSON (via XHR) or    
+JSONP (dynamic script load) or    
+EventSource/SSE (Now being used instead of WebSockets!)    
 
-###HTTP and HTML/JS only
+This is an elegant, declarative solution for data exchange between browser/HTTP clients and servers, that uses HTTP and HTML/JS only.
 
 ####HTML
 ````
