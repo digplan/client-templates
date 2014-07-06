@@ -11,6 +11,9 @@ This is an elegant, declarative solution for data exchange between browser/HTTP 
 
 Included is sse.js, which provides client management and sending data (events) to clients.
 
+x-updates points to the url providing the events
+x-process [optional] is a callback function
+
 ####HTML
 ````
 <!DOCTYPE html>
@@ -18,7 +21,7 @@ Included is sse.js, which provides client management and sending data (events) t
 The time is {{ time }}
 
 <!-- updates -->
-<script x-updates='/feed' src='render.js'></script>
+<script x-updates='/feed' x-process='catchEvents' src='render.js'></script>
 
 <!-- jsonp 
   <script x-jsonp='jsonp.js' src='render.js'></script>

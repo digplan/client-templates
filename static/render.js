@@ -35,11 +35,12 @@
     var wsurl = d.querySelector('[x-updates]');
     if(!wsurl) return;
     var ev = new EventSource(wsurl.getAttribute('x-updates'));
-    console.log('waiting for events');
-    
+    var processfunc = wsurl.getAttribute('x-process');
+
     ev.onmessage = function(e){
       var data = JSON.parse(e.data);
-      console.log(data)
+      if(processfunc)
+        data = window[processfunc](data);
       render(data);
     }
   }
