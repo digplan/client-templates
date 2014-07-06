@@ -1,17 +1,12 @@
-require('uni');
+var express = require('express');
+var app = express();
+app.use(express.static(__dirname + '/static'));
 
-var app = new Server();
+// sse.js is used to send events to client
+var sse = require('./sse.js');
+app.all('/feed', sse.handle);
 
-app.get('/feed', function(r, s){
+setInterval(function(){console.log('sending');sse.send({time: new Date()})}, 1000);
 
-  s.writeHead(200, {
-    'Connection': 'keep-alive',
-    'Content-Type': 'text/event-stream',
-    'Transfer-Encoding': 'chunked'
-  });
-
-  setInterval(function(){
-    s.write("data: {\"time\":" + Date.now() + "}\n\n");
-  }, 1000);
-
-});
+app.listen(80);
+console.log('started');

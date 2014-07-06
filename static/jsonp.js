@@ -1,1 +1,1 @@
-render({"name": "world"})
+render({"time": new Date()})

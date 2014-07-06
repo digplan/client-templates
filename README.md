@@ -9,6 +9,8 @@ EventSource/SSE (Now being used instead of WebSockets!)
 
 This is an elegant, declarative solution for data exchange between browser/HTTP clients and servers, that uses HTTP and HTML/JS only.
 
+Included is sse.js, which provides client management and sending data (events) to clients.
+
 ####HTML
 ````
 <!DOCTYPE html>
