@@ -23,16 +23,13 @@ window['x-template']  holds the entire page template
 
 ####HTML
 ````
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 
-The time is {{ time }}
+Hello {{name}}
 
-<!-- updates -->
-<script x-updates='/feed' x-process='catchEvents' src='render.js'></script>
-
+<!-- sse  <script x-updates='/feed' x-process='catchEvents' src='render.js'></script> -->
 <!-- jsonp  <script x-jsonp='jsonp.js' src='render.js'></script>  -->
 <!-- json  <script x-json='data.json' src='render.js'></scrip>t  -->
-Hello {{name}}
 
 <script>
   window['x-template'] = 'Goodbye {{name}}';  // change the template
