@@ -25,7 +25,8 @@
   window["x-data"] = null;
 
   window.render = function(data){
-    window["x-data"] = data;
+    if(data)
+      window["x-data"] = data;
     window["x-template"] = window["x-template"] || d.body.innerHTML;
     d.body.innerHTML = Hogan.compile(window["x-template"]).render(data);
     d.body.hidden = false;
