@@ -24,11 +24,15 @@
   window["x-template"] = null;
   window["x-data"] = null;
 
-  window.render = function(data){
+  window.render = function(data, preprocess){
     if(data)
       window["x-data"] = data;
+    if(preprocess)
+      window["x-data"] = preprocess(window["x-data"]);
+    if(!window["x-data"])
+      return;
     window["x-template"] = window["x-template"] || d.body.innerHTML;
-    d.body.innerHTML = Hogan.compile(window["x-template"]).render(data);
+    d.body.innerHTML = Hogan.compile(window["x-template"]).render(window["x-data"]);
     d.body.hidden = false;
   };
 
