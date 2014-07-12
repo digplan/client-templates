@@ -7,12 +7,11 @@ JSON (via XHR) or
 JSONP (dynamic script load) or    
 EventSource/SSE (Now being used instead of WebSockets!)    
 
-This is an elegant, declarative solution for data exchange between browser/HTTP clients and servers, that uses HTTP and HTML/JS only.
+- This is an elegant, declarative solution for data exchange between browser/HTTP clients and servers, that uses HTTP and HTML/JS only.
 
-Included is sse.js, which provides client management and sending data (events) to clients.
-
-x-updates points to the url providing the events
-x-process [optional] is a callback function
+- Included is sse.js, which provides client management and sending data (events) to clients.
+- x-updates points to the url providing the events
+- x-process [optional] is a callback function
 
 A few helpers are added to window.
 
@@ -21,7 +20,6 @@ post(url, data, callback);  is for simple ajax needs
 window['x-data']  holds the last retrived data
 window['x-template']  holds the entire page template
 
-####HTML
 ````
 <!DOCTYPE HTML>
 
