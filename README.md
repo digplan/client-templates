@@ -24,4 +24,14 @@ load(url, cb);
 get(url);  // yes, sync (normally POST and asnyc is best)
 post(url, data, cb);
 sse('/feed', function(obj));
+
+web components:
+
+&lt;x-mycomponent name='world'>
+&lt;script>
+  function mycomponent(p, e){
+  	return 'hello ' + p.name;
+  }
+&lt;/script>
+
 </pre>
