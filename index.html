@@ -28,6 +28,15 @@ get(url);  // yes, sync (normally POST and asnyc is best)
 post(url, data, cb);
 sse('/feed', function(obj));
 
+web components:
+
+&lt;x-mycomponent name='world'>
+&lt;script>
+  function mycomponent(p, e){
+  	return 'hello ' + p.name;
+  }
+&lt;/script>
+
 </pre>
 
 <script>
@@ -38,8 +47,11 @@ sse('/feed', function(obj));
 </script>
 
 <script x-updates='/feed' x-process='catchEvents' src='render.js'></script>
-<script src='flav.js' ></script>
 
-<!-- post (helpoer function)
-  post(url, data, callback)
--->
+<x-mycomponent name='world'>
+<script>
+  function mycomponent(p, e){
+  	return 'hello ' + p.name;
+  }
+</script>
+<script src='flav.js' ></script>
