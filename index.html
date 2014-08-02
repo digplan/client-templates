@@ -1,3 +1,7 @@
+<!DOCTYPE html>
+
+<link href='css.css' rel='stylesheet'>
+
 <h1 class='roboto'>client-templates</h1>
 <pre>
 A collection of simple client-js helpers
@@ -25,3 +29,17 @@ post(url, data, cb);
 sse('/feed', function(obj));
 
 </pre>
+
+<script>
+  function catchEvents(data){
+  	console.log('processing', data);
+  	return data;
+  }
+</script>
+
+<script x-updates='/feed' x-process='catchEvents' src='render.js'></script>
+<script src='flav.js' ></script>
+
+<!-- post (helpoer function)
+  post(url, data, callback)
+-->
