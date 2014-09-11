@@ -1,57 +1,34 @@
 <!DOCTYPE html>
-
 <link href='css.css' rel='stylesheet'>
 
-<h1 class='roboto'>client-templates</h1>
-<pre>
-A collection of simple client-js helpers
+<body class=roboto>
 
-<h1>sse / render.js:</h1>
-&lt;!DOCTYPE HTML>
-The time is {{ time }}
+<center>
+<h1>Five Minute Trends</h1>
 
-function catchEvents(data){
-  console.log('processing', data);
-  return data;
-}
-&lt;script x-updates='/feed' x-process='catchEvents' src='render.js'></script>
-&lt;script x-jsonp='jsonp.js' src='render.js'></script>
-&lt;script x-json='data.json' src='render.js'></script>
+<div id='template'>
+ <div class='three left padding'>
+ {{#users}}
+  <a target=_ href=http://twitter.com/{{name}}>{{name}}</a> <small title='score'>{{score}}</small><br>
+ {{/users}}
+ </div>
 
-<h1>flav:</h1>
-&lt;script src='flav.js' ></script>
+ <div class='three left padding' dir="">
+ {{#tags}}
+  <a target=_ href=http://twitter.com/{{name}}>{{name}}</a> <small title='score'>{{score}}</small><br>
+ {{/tags}}
+ </div>
+ </center>
+</div>
 
-$('#id')
-renderht(data, prefunc);
-load(url, cb);
-get(url);  // yes, sync (normally POST and asnyc is best)
-post(url, data, cb);
-sse('/feed', function(obj));
-
-web components:
-
-&lt;x-mycomponent name='world'>
-&lt;script>
-  function mycomponent(p, e){
-  	return 'hello ' + p.name;
-  }
-&lt;/script>
-
-</pre>
+</body>
 
 <script>
   function catchEvents(data){
-  	console.log('processing', data);
+    data.users = data.users.map(function(u){return {name:u[0], score:u[1]}});
+    data.tags = data.tags.map(function(u){return {name:u[0], score:u[1]}});
   	return data;
   }
 </script>
 
 <script x-updates='/feed' x-process='catchEvents' src='render.js'></script>
-
-<x-mycomponent name='world'>
-<script>
-  function mycomponent(p, e){
-  	return 'hello ' + p.name;
-  }
-</script>
-<script src='flav.js' ></script>

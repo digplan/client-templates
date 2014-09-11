@@ -24,15 +24,10 @@
   window["x-template"] = null;
   window["x-data"] = null;
 
-  window.render = function(data, preprocess){
-    if(data)
-      window["x-data"] = data;
-    if(preprocess)
-      window["x-data"] = preprocess(window["x-data"]);
-    if(!window["x-data"])
-      return;
-    window["x-template"] = window["x-template"] || d.body.innerHTML;
-    d.body.innerHTML = Hogan.compile(window["x-template"]).render(window["x-data"]);
+  window.render = function(data){
+    var template = d.querySelector('#template');
+    window["x-template"] = window["x-template"] || template.innerHTML;
+    template.innerHTML = Hogan.compile(window["x-template"]).render(data);
     d.body.hidden = false;
   };
 
@@ -44,6 +39,7 @@
 
     ev.onmessage = function(e){
       var data = JSON.parse(e.data);
+      console.log(data)
       if(processfunc)
         data = window[processfunc](data);
       render(data);
